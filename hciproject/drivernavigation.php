@@ -1,4 +1,6 @@
-    
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
+<script src="mapJs.js" type="text/javascript"></script>    
 	<!-- Navigation -->
 	<?php include 'common/header.php' ?> 
 
@@ -15,14 +17,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">
-					<h2>Driver Navigation</h2>
+                    <h2 class="section-heading">Driver Navigation</h2>
                 </div>
             </div>
-			<div class="col-md-12">
-				<img src="img/map.jpg" width="100%">
-			</div>
 			<!--Put map here-->
+                        <div ng-controller="MapController">
+                            <div id="map" style="width:75%;height:60%;left: 12.5%"></div>
+                            <div id="repeat" ng-repeat="marker in markers"> </div>
+                        </div>
         </div>
     </section>
 	
