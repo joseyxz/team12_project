@@ -91,6 +91,7 @@
                 {
                     $scope.coordinate = results[0].geometry.location
                     $scope.map.setCenter(results[0].geometry.location)
+                    console.log (results[0].geometry.location)
 
                     /*
                      Once we have recieved the geocodes, we have to display a marker at that position
@@ -98,12 +99,16 @@
                      map: i.e. where the marker will be displayed
                      position: the geocordinates on the map where the marker should be displayed
                      */
-
+                    var infoWindow = new google.maps.InfoWindow();
                     var marker = new google.maps.Marker(
                             {
                                 map: $scope.map,
                                 position: results[0].geometry.location
                             });
+//                    marker.content = "latitude" + results[0].geometry.location.lat() + "	" + "longitude" + results[0].geometry.location.lng() + "    " + results[0].formatted_address;
+                      marker.content = results[0].formatted_address;
+                    infoWindow.setContent(marker.content);
+                    infoWindow.open($scope.map, marker);
 
                     /*
                      We need to know the latitude and longitude of each marker
