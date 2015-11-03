@@ -27,7 +27,7 @@
          https://developers.google.com/maps/documentation/javascript/examples/control-options
          */
         var mapOptions = {
-            zoom: 10,
+            zoom: 13,
             center: new google.maps.LatLng(1.3, 103.8),
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
@@ -64,7 +64,6 @@
             codeAddress(address1)
             codeAddress(address2)
                     ;
-
 
         }
 
