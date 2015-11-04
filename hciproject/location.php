@@ -34,7 +34,10 @@
         </div>
         <!-- Put your map here -->
         <div ng-controller="MapController">
-            <div id="map" style="width:75%;height:60%;left: 12.5%"></div>
+            <script>
+            
+            </script>
+            <div id="map" style="width:75%;height:60%;left: 12.5%; "></div>
             <div id="repeat" ng-repeat="marker in markers"> </div>
             <div class="row text-center">
                 <div>
@@ -47,6 +50,7 @@
                     }
                     ?>           
                            <input type="submit" class="btn btn-default btn-sm" value="Search address" ng-click = "search(address1)"/>
+                           <input type="submit" class="btn btn-default btn-sm" value="clear" ng-click = "clear()"/>
                            <button type="button" class="btn btn-default btn-sm">Get current location</button>
                 </div>
                 <form id="location-form" method="post" action="process/setlocation.php">
