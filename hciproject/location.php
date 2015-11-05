@@ -41,7 +41,7 @@
             <div id="repeat" ng-repeat="marker in markers"> </div>
             <div class="row text-center">
                 <div>
-                    <input style="left: 50%" required type="text" class="form-control" placeholder="Set address"  ng-model="address1" value="<?php
+                    <input style="left: 50%" type="text" class="form-control" placeholder="Set address"  ng-model="address1" value="<?php
                     if (isset($_SESSION["start"])) {
                         echo $_SESSION["start"];
                         echo ' ">';
@@ -50,11 +50,10 @@
                     }
                     ?>           
                            <input type="submit" class="btn btn-default btn-sm" value="Search address" ng-click = "search(address1)"/>
-                           <input type="submit" class="btn btn-default btn-sm" value="clear" ng-click = "clear()"/>
-                           <button type="button" class="btn btn-default btn-sm">Get current location</button>
+                           <input type="submit" class="btn btn-default btn-sm" value="GPS" ng-click="search('10 Dover Drive, Singapore 138683')">
                 </div>
                 <form id="location-form" method="post" action="process/setlocation.php">
-                    <input style="visibility: hidden" ng-model="address1" required type="text" class="form-control" name="location" id="search" value="<?php if (isset($_SESSION["start"])){echo $_SESSION["start"];echo '">';} else {echo '" placeholder="Search">';}?>
+                    <input style="visibility: hidden" ng-model="address1"  type="text" class="form-control" name="location" id="search" value="<?php if (isset($_SESSION["start"])){echo $_SESSION["start"];echo '">';} else {echo '" placeholder="Search">';}?>
 				<a href="home.php" class="page-scroll btn btn-xl">Cancel</a> &nbsp;
 				<button type="submit" class="page-scroll btn btn-xl">Continue</button>
 		</form>

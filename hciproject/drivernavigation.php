@@ -24,7 +24,7 @@
                         <div ng-controller="MapController" >
                             <div id="map" style="width:75%;height:60%;left: 12.5%"></div>
                             <div id="repeat" ng-repeat="marker in markers"> </div>                       
-                            <div type="submit" value="Search address" ng-init = " search('<?php echo $_SESSION["start"] ?>','<?php echo $_SESSION["destination"] ?>')"/> </div>
+                            <div type="submit" value="Search address" ng-init = " search('<?php echo $_SESSION["start"] ?>','<?php echo $_SESSION["destination"] ?>') "/> </div>
                             <input type="submit" value="Show route" ng-click="showLine()"/> 
                         </div>
         </div>

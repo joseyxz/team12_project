@@ -32,8 +32,6 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             events: {
             "click": function (event, a, b) {
-              console.log(a);
-              console.log(b);
               console.log(event.LatLng);
 
             }
@@ -119,6 +117,7 @@
                             {
                                 map: $scope.map,
                                 position: results[0].geometry.location
+
                             });
 //                    marker.content = "latitude" + results[0].geometry.location.lat() + "	" + "longitude" + results[0].geometry.location.lng() + "    " + results[0].formatted_address;
                       marker.content = results[0].formatted_address;
@@ -132,8 +131,6 @@
                      */
 
 
-                    $scope.markers.push(marker);
-                    x = 1;
 
                     var route = new google.maps.LatLng(
                             results[0].geometry.location.lat(),
@@ -145,6 +142,21 @@
                      which contains routes of all locations
                      */
                     $scope.routes.push(route)
+                    
+                            $scope.path1 = new google.maps.Polyline(
+                            {
+                                path: $scope.routes,
+                                strokeColor: "#FF0000",
+                                strokeOpacity: 1.0,
+                                strokeWeight: 2
+                            });
+
+                            /*
+                             This code is used to put the line on the map
+                             which connects the two markers
+                             */
+                            
+                            $scope.markers.push(marker);
 
                 }
                 
@@ -181,12 +193,9 @@
 
         }
 
-        google.maps.event.addDomListener(map, 'click', function(event) {
+        google.maps.event.addDomListener(map, 'click', function() {
            // window.alert('Map was clicked!');
-           console.log (event)
-           position : event.latLng
-           console.log (position)
-            address = event.latLng
+            address = 'changi'
             testAddress(address)
             function testAddress (info) {
             geocoder.geocode({'address': info}, function (results, status){
@@ -197,10 +206,7 @@
             }}
             
         )}});
-
-         
-
-
+        
     }
     ; // end of controller function
 

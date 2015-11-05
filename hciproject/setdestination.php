@@ -34,7 +34,7 @@
             <div id="repeat" ng-repeat="marker in markers"> </div>
             <div class="row text-center">
                 <div>
-                    <input style="left: 50%" required type="text" class="form-control" placeholder="Set address"  ng-model="address2" value="<?php
+                    <input style="left: 50%"  type="text" class="form-control" placeholder="Set address"  ng-model="address2" value="<?php
                     if (isset($_SESSION["destination"])) {
                         echo $_SESSION["destination"];
                         echo ' ">';
