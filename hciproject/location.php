@@ -34,9 +34,7 @@
         </div>
         <!-- Put your map here -->
         <div ng-controller="MapController">
-            <script>
-            
-            </script>
+
             <div id="map" style="width:75%;height:60%;left: 12.5%; "></div>
             <div id="repeat" ng-repeat="marker in markers"> </div>
             <div class="row text-center">

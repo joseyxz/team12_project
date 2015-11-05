@@ -193,19 +193,19 @@
 
         }
 
-        google.maps.event.addDomListener(map, 'click', function() {
-           // window.alert('Map was clicked!');
-            address = 'changi'
-            testAddress(address)
-            function testAddress (info) {
-            geocoder.geocode({'address': info}, function (results, status){
-                if (status == google.maps.GeocoderStatus.OK){
-                    $scope.coordinate = results[0].geometry.location
-                    $scope.map.setCenter(results[0].geometry.location)
-                    console.log (results[0].geometry.location.lat())  
-            }}
-            
-        )}});
+//        google.maps.event.addDomListener(map, 'click', function() {
+//           // window.alert('Map was clicked!');
+//            address = 'changi'
+//            testAddress(address)
+//            function testAddress (info) {
+//            geocoder.geocode({'address': info}, function (results, status){
+//                if (status == google.maps.GeocoderStatus.OK){
+//                    $scope.coordinate = results[0].geometry.location
+//                    $scope.map.setCenter(results[0].geometry.location)
+//                    console.log (results[0].geometry.location.lat())  
+//            }}
+//            
+//        )}});
         
     }
     ; // end of controller function
