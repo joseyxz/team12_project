@@ -16,19 +16,13 @@
     </header>
 
     <!-- Content -->
+	
+	<!-- Check if driver has accepted request -->
+	
 	<!-- Put AJAX loading codes -->
     <section id="location">
         <div class="container">
 			<div class="col-md-6">
-			<h5>Pick up location</h5>
-				<?php echo $_SESSION["start"];?>
-				<br/><br/>
-			</div>
-			<div class="col-md-6">
-				<h5>Destination</h5>
-				<?php echo $_SESSION["destination"];?>
-				<br/>
-			</div><br/>
 			<div class="row text-center">
 				<!-- Put your map here -->
 				<div class="col-md-12">
@@ -39,27 +33,14 @@
 								<div class="car-icon carone"></div>
 							</a>
 							<a id="callPopup">
-								<div class="car-icon cartwo"></div>
+							<div class="car-icon cartwo"></div>
 							</a>
 							<a id="callPopup">
-								<div class="car-icon carthree"></div>
+							<div class="car-icon carthree"></div>
 							</a>
 							<a id="callPopup">
-								<div class="car-icon carfour"></div>
+							<div class="car-icon carfour"></div>
 							</a>
-							<div id="popup-content" class="pop-up">
-								<h5>Driver Information</h5>
-								<!-- Driver Name --> 
-								<!-- Car -->
-								<!-- Destination -->
-								<!-- Current Passengers -->
-								<form id="request-form" method="post" action="process/sendrequest.php">
-								Cost: $&nbsp;<input required type="number" name="cost" class="form-control" style="width: 100px; display: inline;" value="0"/>
-								<br/><br/>
-								<a class="btn btn-default btn-sm" id="closePopup">Close</a>&nbsp;
-								<button type="submit" class="btn btn-default btn-sm">Request</button>
-							</div>
-							<div id="fade-out" class="overlay"></div>
 						</div>
 					</div>					
 				</div>
@@ -91,24 +72,9 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/agency.js"></script>
 
-	<script type="text/javascript">
-	<!-- Popup Functions -->
-	$('a#callPopup').click( 
-	function() { 
-		document.getElementById('popup-content').style.display='block';
-		document.getElementById('fade-out').style.display='block'; 
-		return false; 
-	});
-	
-	$('a#closePopup').click( 
-	function() {
-		document.getElementById('popup-content').style.display='none';
-		document.getElementById('fade-out').style.display='none';
-		return false;
-	});
-	
+	<script type="text/javascript">	
 	<!-- Display Map Routing *Example -->
-	 function initMap() {
+	function initMap() {
 		var chicago = {lat: 41.85, lng: -87.65};
 		var indianapolis = {lat: 39.79, lng: -86.14};
 

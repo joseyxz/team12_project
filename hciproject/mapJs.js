@@ -27,9 +27,15 @@
          https://developers.google.com/maps/documentation/javascript/examples/control-options
          */
         var mapOptions = {
-            zoom: 10,
+            zoom: 13,
             center: new google.maps.LatLng(1.3, 103.8),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            events: {
+            "click": function (event, a, b) {
+              console.log(event.LatLng);
+
+            }
+            }
         }
         /*
          Remember in the HTML file we will display the map in the HTML node <div id = map>
@@ -60,11 +66,9 @@
              So we write a function and call it twice to geocode the locations
              But we pass different parameters to the function in each call
              */
-
-            codeAddress(address1)
-            codeAddress(address2)
-                    ;
-
+            deleteMarker();
+            codeAddress(address1);
+            codeAddress(address2);
 
         }
 
@@ -75,7 +79,15 @@
          The function will return a status and the result
          */
 
+        function deleteMarker(){
+            for (var i = 0; i < $scope.markers.length; i++) {
+            $scope.markers[i].setMap(null);
+            }
+        }
+
+
         var codeAddress = function (info) {
+
             geocoder.geocode({'address': info}, function (results, status)
             {
 
@@ -92,6 +104,7 @@
                 {
                     $scope.coordinate = results[0].geometry.location
                     $scope.map.setCenter(results[0].geometry.location)
+                    console.log (results[0].formatted_address)
 
                     /*
                      Once we have recieved the geocodes, we have to display a marker at that position
@@ -99,12 +112,17 @@
                      map: i.e. where the marker will be displayed
                      position: the geocordinates on the map where the marker should be displayed
                      */
-
+                    var infoWindow = new google.maps.InfoWindow();
                     var marker = new google.maps.Marker(
                             {
                                 map: $scope.map,
                                 position: results[0].geometry.location
+
                             });
+//                    marker.content = "latitude" + results[0].geometry.location.lat() + "	" + "longitude" + results[0].geometry.location.lng() + "    " + results[0].formatted_address;
+                      marker.content = results[0].formatted_address;
+                    infoWindow.setContent(marker.content);
+                    infoWindow.open($scope.map, marker);
 
                     /*
                      We need to know the latitude and longitude of each marker
@@ -113,7 +131,6 @@
                      */
 
 
-                    $scope.markers.push(marker);
 
                     var route = new google.maps.LatLng(
                             results[0].geometry.location.lat(),
@@ -125,16 +142,28 @@
                      which contains routes of all locations
                      */
                     $scope.routes.push(route)
+                    
+                            $scope.path1 = new google.maps.Polyline(
+                            {
+                                path: $scope.routes,
+                                strokeColor: "#FF0000",
+                                strokeOpacity: 1.0,
+                                strokeWeight: 2
+                            });
 
-
-
+                            /*
+                             This code is used to put the line on the map
+                             which connects the two markers
+                             */
+                            
+                            $scope.markers.push(marker);
 
                 }
+                
             });
+             
 
-        }
-
-
+        }        
         /*
          Now we define the ShowLine() which is executed once the suer clicks to connect the markers
          This code actually takes all the elements in the routes array 
@@ -142,7 +171,7 @@
          The routes is the most important thing for this function
          */
 
-
+         
 
         $scope.showLine = function () {
 
@@ -164,8 +193,20 @@
 
         }
 
-
-
+//        google.maps.event.addDomListener(map, 'click', function() {
+//           // window.alert('Map was clicked!');
+//            address = 'changi'
+//            testAddress(address)
+//            function testAddress (info) {
+//            geocoder.geocode({'address': info}, function (results, status){
+//                if (status == google.maps.GeocoderStatus.OK){
+//                    $scope.coordinate = results[0].geometry.location
+//                    $scope.map.setCenter(results[0].geometry.location)
+//                    console.log (results[0].geometry.location.lat())  
+//            }}
+//            
+//        )}});
+        
     }
     ; // end of controller function
 

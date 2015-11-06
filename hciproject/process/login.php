@@ -1,38 +1,32 @@
-<?php 
-/*
-include 'connectdb.php';
+<?php
+require_once 'connectdb.php';
+session_start();
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $uname = $_POST['username'];
-    $pword = $_POST['password'];
+    $username = trim($_POST["username"]);
+    $password = trim($_POST["password"]);
 
-    $uname = htmlspecialchars($uname);
-    $pword = htmlspecialchars($pword);
-
-    $SQL = 'SELECT * FROM login WHERE username = "'.mysql_real_escape_string($uname).'" AND password = "'.mysql_real_escape_string($pword).'"';
-    $result = mysqli_query($connection, $SQL);
-    $num_rows = mysqli_affected_rows($connection);                        
-    
-    if($num_rows){
-        session_start();
-        $_SESSION['login'] = "1";
-        $_SESSION['userlogin'] = $uname;
-        
-        $sql = 'select name from login where username = "'.mysql_real_escape_string($uname).'" limit 1';
-        $result2 = mysqli_query($connection, $sql);
-        $row = mysqli_fetch_assoc($result2);
-        $_SESSION['fname'] = $row['name'];
-        
-        header("location: main.php");
+    try{
+        $sql= "SELECT * FROM userprofile where userName='".$username."' and passw='".$password."'";
+            if($result = mysqli_query($connection,$sql))
+            {      
+                if($row = mysqli_fetch_assoc($result))
+                {
+                    $userfullname=$row['name'];
+                    $_SESSION['fname']=$userfullname;
+                    $_SESSION['login'] = 1;
+            
+                    header("location: ../home.php");
+                }
+                else{
+                    header("location: ../home.php?redirect:error");
+                }
+            mysqli_stmt_free_result($stmt);
+            mysqli_close($connection);
+        }
     }
-    else{
-        session_start();
-        $_SESSION['login'] = "";
-        $_SESSION['error'] = "1";
-        header("location: signin.php");
+    catch(Exception $e){
+            die(var_dump($e));
     }
-	}*/
-    session_start();
-	$_SESSION['login'] = "1";
-	header("location: ../home.php");
-
+}
+?>

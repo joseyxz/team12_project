@@ -1,6 +1,9 @@
 <?php
 
-include 'config.php';
+define('DBHOST','localhost');
+define('DBNAME','team12_database');
+define('DBUSER','root');
+define('DBPASS','');
 
 $errorMessage = "";
 $num_rows = 0;
@@ -12,6 +15,4 @@ if($error != null){
     $output = "<p>Unable to connect to database </p>".$error;
     //output error message and terminate current script
     exit($output);
-}
-
-
+}?>

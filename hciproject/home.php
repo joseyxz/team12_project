@@ -22,12 +22,16 @@
 					echo '</div>';
 				}
 				else if ($_SESSION['login'] == "1"){
+                                        if (isset($_SESSION['fname'])){
+						$fname= $_SESSION['fname'];
+					}
 					if (isset($_SESSION['start'])){
 						unset($_SESSION['start']);
 					}
 					if (isset($_SESSION['destination'])){
 						unset($_SESSION['destination']);
 					}
+                                        echo '<div class="intro-lead-in">Welcome, '.$fname.'</div>';
 					echo '<div class="intro-lead-in">Let\'s start carpooling!</div>';
 					echo '<div class="col-md-2"><br/></div>';
 					echo '<div class="col-md-3">';
