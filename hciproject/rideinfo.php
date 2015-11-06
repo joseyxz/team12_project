@@ -30,12 +30,7 @@
                 <div class="col-md-8">
 				<form id="location-form" method="post" action="process/setrideinfo.php">
 					<table width="100%">
-					<tr style="height: 3em">
-					<td>Name: </td>
-					<td>
-					<input required type="text" class="form-control" name="drivername" id="drivername" value="<?php if (isset($_SESSION["drivername"])){echo $_SESSION["drivername"];}?>">
-					</td>
-					</tr>
+					
 					<tr style="height: 3em">
 					<td>Car Type:</td>
 					<td>

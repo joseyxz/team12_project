@@ -34,8 +34,8 @@
 					<td>Name: </td>
 					<td>
 					<?php 
-					if (isset($_SESSION['drivername'])){
-						echo $_SESSION['drivername'];
+					if (isset($_SESSION['fname'])){
+						echo $_SESSION['fname'];
 					}
 					?>
 					</td>
