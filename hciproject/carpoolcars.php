@@ -4,6 +4,11 @@
 	<script src="mapJs.js" type="text/javascript"></script>
     <link href="css/cars.css" rel="stylesheet" type="text/css">
 	
+    <!-- For pop ups -->
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
+        <script src="mapJs.js" type="text/javascript"></script>
+	
 	<!-- Navigation -->
 	<?php include 'common/header.php' ?> 
 
@@ -63,13 +68,12 @@
 						</div>
 					</div>					
 				</div>
-				</div>
+			</div>
 					<br/>
 				<!-- Add confirm cancellation -->
 				
-				<div class="row text-center">
-					<a href="home.php" class="page-scroll btn btn-xl">Cancel</a>
-				</div>
+			<div class="row text-center">
+				<a href="home.php" class="page-scroll btn btn-xl">Cancel</a>
 			</div>
         </div>
     </section>
