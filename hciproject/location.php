@@ -48,7 +48,7 @@
                     }
                     ?>           
                            <input type="submit" class="btn btn-default btn-sm" value="Search address" ng-click = "search(address1)"/>
-                           <input type="submit" class="btn btn-default btn-sm" value="GPS" ng-click="search('10 Dover Drive, Singapore 138683')">
+                           <input type="submit" class="btn btn-default btn-sm" value="GPS" ng-click="search('10 Dover Drive, Singapore 138683')" onMousedown="<?php $_SESSION["start"]= 'dover singapore' ?>"
                 </div>
                 <form id="location-form" method="post" action="process/setlocation.php">
                     <input style="visibility: hidden" ng-model="address1"  type="text" class="form-control" name="location" id="search" value="<?php if (isset($_SESSION["start"])){echo $_SESSION["start"];echo '">';} else {echo '" placeholder="Search">';}?>

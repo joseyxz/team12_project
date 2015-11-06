@@ -192,7 +192,12 @@
             $scope.path1.setMap($scope.map);
 
         }
-
+        
+//        $scope.placeMarker = function (e) {
+//            var marker = new google.maps.Marker({position: e.latLng, mapOptions: mapOptions});
+//            map.panTo(e.latLng);
+//        }
+        
 //        google.maps.event.addDomListener(map, 'click', function() {
 //           // window.alert('Map was clicked!');
 //            address = 'changi'
