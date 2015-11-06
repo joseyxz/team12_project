@@ -49,7 +49,7 @@
                 <form id="location-form" method="post" action="process/setlocation.php">
                     <input style="visibility: hidden" ng-model="address1"  type="text" class="form-control" name="location" id="search" value="<?php if (isset($_SESSION["start"])){echo $_SESSION["start"];echo '">';} else {echo '" placeholder="Search">';}?>
 				<a href="home.php" class="page-scroll btn btn-xl">Cancel</a> &nbsp;
-				<button type="submit" disabled="true" id="continueButton" class="page-scroll btn btn-xl">Continue</button>
+				<button type="submit" id="continueButton" class="page-scroll btn btn-xl">Continue</button>
 		</form>
             </div>           
         </div>
