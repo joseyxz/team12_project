@@ -1,3 +1,4 @@
+
 (function () {
     angular
             .module("mapApp", []) // create module
@@ -31,7 +32,7 @@
 
             }
             }
-        }
+        };
         /*
          Remember in the HTML file we will display the map in the HTML node <div id = map>
          We get the reference to this node using document.getElementById
@@ -49,13 +50,15 @@
          */
         var geocoder = new google.maps.Geocoder();
         $scope.markers = [];
-        $scope.routes = []
+        $scope.routes = [];
 
         /*
          Now we will define the search function which has two locations input by the user as the parameters
          */
         $scope.search = function (address1, address2) {
-
+            
+            document.getElementById("searchinput").value = "";
+            document.getElementById("search").value = "";
             /*
              Ideally we need to geocode two locations. There is no point writing the same piece of code twice
              So we write a function and call it twice to geocode the locations
@@ -63,9 +66,8 @@
              */
             deleteMarker();
             codeAddress(address1);
-            codeAddress(address2);
-
-        }
+            codeAddress(address2); 
+        };
 
         /*
          The following piece of code including if and else statement will remain the same for all geocoding applications
@@ -78,14 +80,12 @@
             for (var i = 0; i < $scope.markers.length; i++) {
             $scope.markers[i].setMap(null);
             }
-        }
+        };
 
 
         var codeAddress = function (info) {
-
             geocoder.geocode({'address': info}, function (results, status)
             {
-
                 /*
                  We will first check if the status is OK
                  OK means the geocoder was able to find location coordinates for the entered location
@@ -93,13 +93,11 @@
                  Then we will center the map to that location, i.e. focus to the location
                  For any other application, all the code will remain same
                  */
-
-                if (status == google.maps.GeocoderStatus.OK)
-
+                if (status === google.maps.GeocoderStatus.OK)
                 {
-                    $scope.coordinate = results[0].geometry.location
-                    $scope.map.setCenter(results[0].geometry.location)
-                    console.log (results[0].formatted_address)
+                    $scope.coordinate = results[0].geometry.location;
+                    $scope.map.setCenter(results[0].geometry.location);
+                    console.log (results[0].formatted_address);
 
                     /*
                      Once we have recieved the geocodes, we have to display a marker at that position
@@ -114,8 +112,103 @@
                                 position: results[0].geometry.location
 
                             });
-//                    marker.content = "latitude" + results[0].geometry.location.lat() + "	" + "longitude" + results[0].geometry.location.lng() + "    " + results[0].formatted_address;
-                      marker.content = results[0].formatted_address;
+                    marker.content = results[0].formatted_address;
+                    document.getElementById("search").value = results[0].formatted_address;
+                    document.getElementById("searchinput").value = results[0].formatted_address;
+                    infoWindow.setContent(marker.content);
+                    infoWindow.open($scope.map, marker);
+                    /*
+                     We need to know the latitude and longitude of each marker
+                     because we need to draw a line between them
+                     We do so using the following code
+                     */
+                    var route = new google.maps.LatLng(
+                            results[0].geometry.location.lat(),
+                            results[0].geometry.location.lng()
+                            );
+
+                    /*
+                     Now route (lat, lng) for each route is send to an array
+                     which contains routes of all locations
+                     */
+                    $scope.routes.push(route)
+                    
+                            $scope.path1 = new google.maps.Polyline(
+                            {
+                                path: $scope.routes,
+                                strokeColor: "#FF0000",
+                                strokeOpacity: 1.0,
+                                strokeWeight: 2
+                            });
+
+                            /*
+                             This code is used to put the line on the map
+                             which connects the two markers
+                             */
+                            
+                            $scope.markers.push(marker);
+                } 
+            }); 
+        };  
+
+        /*
+         Now we define the ShowLine() which is executed once the suer clicks to connect the markers
+         This code actually takes all the elements in the routes array 
+         and connect them using a line
+         The routes is the most important thing for this function
+         */
+        $scope.getLocation = function() {
+            var x = document.getElementById("getid");
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else { 
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        };
+
+        function showPosition(position) {   
+            var myLat1ng= new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+            var currentmap = {
+                zoom: 18,
+                center: myLat1ng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                events: {
+                "click": function (event, a, b) {
+                  console.log(event.LatLng);
+                }
+                }
+            }  
+            $scope.map = new google.maps.Map(document.getElementById("map"), currentmap);
+            $scope.codeLocalAddress(myLat1ng);
+        } 
+        $scope.codeLocalAddress = function (latlng) {
+
+            //check the location latlng to match for format address
+            geocoder.geocode({'location': latlng}, function (results, status)
+            {
+                if (status === google.maps.GeocoderStatus.OK)
+
+                {
+                    $scope.coordinate = results[0].geometry.location;
+                    $scope.map.setCenter(results[0].geometry.location);
+                    console.log (results[0].formatted_address);
+
+                    /*
+                     Once we have recieved the geocodes, we have to display a marker at that position
+                     We do so by creating a marker, with two parameters
+                     map: i.e. where the marker will be displayed
+                     position: the geocordinates on the map where the marker should be displayed
+                     */
+                    var infoWindow = new google.maps.InfoWindow();
+                    var marker = new google.maps.Marker(
+                            {
+                                map: $scope.map,
+                                position: results[0].geometry.location
+
+                            });
+                    marker.content = results[0].formatted_address;
+                    document.getElementById("search").value = results[0].formatted_address;
+                    document.getElementById("searchinput").value = results[0].formatted_address;
                     infoWindow.setContent(marker.content);
                     infoWindow.open($scope.map, marker);
 
@@ -124,9 +217,6 @@
                      because we need to draw a line between them
                      We do so using the following code
                      */
-
-
-
                     var route = new google.maps.LatLng(
                             results[0].geometry.location.lat(),
                             results[0].geometry.location.lng()
@@ -153,54 +243,9 @@
                             
                             $scope.markers.push(marker);
 
-                }
-                
+                } 
             });
-             
-
-        }        
-        /*
-         Now we define the ShowLine() which is executed once the suer clicks to connect the markers
-         This code actually takes all the elements in the routes array 
-         and connect them using a line
-         The routes is the most important thing for this function
-         */
-
-        
-        var x = document.getElementById("getid");
-
-        $scope.getLocation = function() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else { 
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-
-        function showPosition(position) {   
-            var myLat1ng= new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-            var currentmap = {
-                zoom: 18,
-                center: myLat1ng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                events: {
-                "click": function (event, a, b) {
-                  console.log(event.LatLng);
-                }
-                }
-            }  
-            $scope.map = new google.maps.Map(document.getElementById("map"), currentmap);
-            var infoWindow = new google.maps.InfoWindow();
-                     
-            var marker = new google.maps.Marker(
-            {
-                map: $scope.map,
-                position: myLat1ng
-            });
-            marker.content = '<p>Your Marker Location: ' + marker.getPosition() + '</p>'
-            infoWindow.setContent(marker.content);
-            infoWindow.open($scope.map, marker);
-        }
+        }; 
         
         $scope.showLine = function () {
 
@@ -220,7 +265,26 @@
 
             $scope.path1.setMap($scope.map);
 
-        }       
+        };
+		
+//        $scope.placeMarker = function (e) {
+//            var marker = new google.maps.Marker({position: e.latLng, mapOptions: mapOptions});
+//            map.panTo(e.latLng);
+//        }
+//        google.maps.event.addDomListener(map, 'click', function() {
+//           // window.alert('Map was clicked!');
+//            address = 'changi'
+//            testAddress(address)
+//            function testAddress (info) {
+//            geocoder.geocode({'address': info}, function (results, status){
+//                if (status == google.maps.GeocoderStatus.OK){
+//                    $scope.coordinate = results[0].geometry.location
+//                    $scope.map.setCenter(results[0].geometry.location)
+//                    console.log (results[0].geometry.location.lat())  
+//            }}
+//            
+//        )}});
+        
     }
     ; // end of controller function
 
