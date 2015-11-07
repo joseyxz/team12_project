@@ -254,6 +254,7 @@
 				icons[0].offset = (count / (noPaths/40)) + '%';
 				line.set('icons', icons);
 				if(count == (noPaths*40)-1)
+
 				{
 					count1 = count1 + 1;
 				}

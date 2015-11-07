@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 (function () {
     angular
@@ -295,5 +296,4 @@
         
     }
     ; // end of controller function
-
 }());
