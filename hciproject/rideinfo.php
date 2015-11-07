@@ -28,22 +28,28 @@
                 <div class="col-md-2">
 				</div>
                 <div class="col-md-8">
-				<form id="location-form" method="post" action="process/setrideinfo.php">
+				<form id="location-form" method="post" action="process/setridesessions.php">
 					<table width="100%">
 					<tr style="height: 3em">
-					<td>Name: </td>
-					<td>
-					<input required type="text" class="form-control" name="drivername" id="drivername" value="<?php if (isset($_SESSION["drivername"])){echo $_SESSION["drivername"];}?>">
-					</td>
+					<td>Name:</td>
+					<td><?php echo $_SESSION['fname'] ?></td>
+					</tr>
+					<tr style="height: 3em">
+					<td>Starting Location:</td>
+					<td><?php echo $_SESSION['start'] ?></td>
+					</tr>
+					<tr style="height: 3em">
+					<td>Destination:</td>
+					<td><?php echo $_SESSION['destination'] ?></td>
 					</tr>
 					<tr style="height: 3em">
 					<td>Car Type:</td>
 					<td>
 					<select class="form-control" name="cartype" id="cartype">
-						<option value="volvo">Volvo</option>
-						<option value="saab">Saab</option>
-						<option value="mercedes">Mercedes</option>
-						<option value="audi">Audi</option>
+						<option value="Volvo">Volvo</option>
+						<option value="Saab">Saab</option>
+						<option value="Mercedes">Mercedes</option>
+						<option value="Audi">Audi</option>
 					</select>
 					</td>
 					</tr>

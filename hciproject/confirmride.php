@@ -28,14 +28,20 @@
                 <div class="col-md-2">
 				</div>
                 <div class="col-md-8">
-				<form id="location-form" method="post" action="#">
+				<form id="location-form" method="post" action="process/setrideinfo.php">
+					<?php 
+					if (isset($_SESSION['error'])){
+						echo 'Error: ';
+						echo $_SESSION['error'];
+						}
+					?>
 					<table width="100%">
 					<tr style="height: 3em">
 					<td>Name: </td>
 					<td>
 					<?php 
-					if (isset($_SESSION['drivername'])){
-						echo $_SESSION['drivername'];
+					if (isset($_SESSION['fname'])){
+						echo $_SESSION['fname'];
 					}
 					?>
 					</td>
@@ -94,8 +100,7 @@
 					<br/><br/>
 					<div class="row text-center">
 						<a href="rideinfo.php" class="page-scroll btn btn-xl">Back</a>
-						<a href="drivernavigation.php" class="page-scroll btn btn-xl">Confirm</a>
-						<!--<button type="submit" class="page-scroll btn btn-xl">Confirm</button>-->
+						<button type="submit" class="page-scroll btn btn-xl">Confirm</button>
 					</div>
 				</form>
 				<div class="col-md-2">

@@ -6,6 +6,7 @@
         <div class="container">
 			<div class="intro-text">
 				<?php
+				$fname = NULL;
 				if (!isset($_SESSION['login'])){
 					echo '<div class="intro-lead-in">Welcome!</div>';
 					echo '<div class="intro-heading">It\'s time to carpool</div>';
@@ -22,8 +23,8 @@
 					echo '</div>';
 				}
 				else if ($_SESSION['login'] == "1"){
-                                        if (isset($_SESSION['fname'])){
-						$fname= $_SESSION['fname'];
+                        if (isset($_SESSION['fname'])){
+							$fname= $_SESSION['fname'];
 					}
 					if (isset($_SESSION['start'])){
 						unset($_SESSION['start']);

@@ -13,13 +13,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 if($row = mysqli_fetch_assoc($result))
                 {
                     $userfullname=$row['name'];
+                    $userid=$row['userId'];
                     $_SESSION['fname']=$userfullname;
+                    $_SESSION['userid']=$userid;
                     $_SESSION['login'] = 1;
             
                     header("location: ../home.php");
                 }
                 else{
-                    header("location: ../home.php?redirect:error");
+                    $message = "Invalid user!";
+                    echo "<script type='text/javascript'>alert('$message');window.location.href = '../home.php?error';</script>";
                 }
             mysqli_stmt_free_result($stmt);
             mysqli_close($connection);

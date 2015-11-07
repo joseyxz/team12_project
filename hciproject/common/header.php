@@ -7,7 +7,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1"">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -47,7 +47,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">Carpool Application</a>
+                <a class="navbar-brand page-scroll" href="home.php">Carpool Application</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->

@@ -1,6 +1,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
-<script src="mapJs.js" type="text/javascript"></script>    
+<script src="js/navMapJs.js" type="text/javascript"></script>
 	<!-- Navigation -->
 	<?php include 'common/header.php' ?> 
 
@@ -16,22 +16,30 @@
     <section id="location">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Driver Navigation</h2>
-                </div>
             </div>
 			<!--Put map here-->
-                        <div ng-controller="MapController" >
-                            <div id="map" style="height:60%;"></div>
-                            <div id="repeat" ng-repeat="marker in markers"> </div>                       
-                            <div type="submit" value="Search address" ng-init = " search('<?php echo $_SESSION["start"] ?>','<?php echo $_SESSION["destination"] ?>') "/> </div>
-                            <input type="submit" value="Show route" ng-click="showLine()"/> 
-                        </div>
+            <div ng-controller="MapController2" >
+			<?php
+				if (isset($_SESSION['error'])){
+					echo '<strong>Error: </strong>';
+					echo $_SESSION['error'];
+					echo '<br/><br/>';
+				}
+			?>
+				<div id="map" style="height:60%;"></div>
+                <div id="repeat" ng-repeat="marker in markers"> </div>                       
+                <div type="submit" value="Search address" ng-init = " search('<?php echo $_SESSION["start"] ?>','<?php echo $_SESSION["destination"] ?>') "/> </div>
+				<div class="row text-center">
+				<br/>
+					<input type="submit" class="page-scroll btn btn-xl" id="showRouteBtn" value="Show route" ng-click="showLine('<?php echo $_SESSION["start"] ?>','<?php echo $_SESSION["destination"] ?>')"/>
+					<input type="submit" style="display: none;" class="page-scroll btn btn-xl" id="startRouteBtn" value="Start route" ng-click="startRoute()"/> 
+				
+					<form id="location-form" method="post" action="process/canceljourney.php">
+						<button type="submit" style="display: none;" class="page-scroll btn btn-xl" id="cancelRouteBtn">Cancel Journey</button> 
+					</form>
+				</div>
         </div>
     </section>
-	
-	<!-- Footer -->
-	<?php include 'common/footer.php' ?> 
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>

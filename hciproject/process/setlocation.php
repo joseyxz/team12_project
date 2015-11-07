@@ -5,6 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['location']) && !empty($_POST["location"])){
 		if (!isset($_SESSION['start']) || (isset($_SESSION['start']) && $prevLocation == 'location.php')){
 			$_SESSION['start'] = $_POST['location'];
+			$_SESSION['originLat'] = $_POST['originLat'];
+			$_SESSION['originLng'] = $_POST['originLng'];
 			header("location: ../setdestination.php");
 		}
 		else if ($prevLocation == 'location.php'){
@@ -12,7 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		else {
 			$_SESSION['destination'] = $_POST['location'];
-			header("location: ../confirmlocation.php");
+			$_SESSION['destLng'] = $_POST['destLat'];
+			$_SESSION['destLat'] = $_POST['destLng'];
+			if ($_SESSION['role'] == 'driver'){
+				header("location: ../rideinfo.php");
+			} else {
+				header("location: ../confirmlocation.php");
+			}
 		}
 	}
 	unset($_POST['location']);

@@ -33,22 +33,24 @@
             <div id="map" style="height:60%;"></div>
             <div id="repeat" ng-repeat="marker in markers"> </div>
             <div class="row text-center">
-                <div>
-                    <input style="left: 50%"  type="text" class="form-control" placeholder="Set address"  ng-model="address2" value="<?php
+                <div><br/>
+                    <input style="left: 50%" id="searchinput" type="text" class="form-control" placeholder="Set address"  ng-model="address2" 
+                           value="<?php
                     if (isset($_SESSION["destination"])) {
                         echo $_SESSION["destination"];
                         echo ' ">';
                     } else {
                         echo '">';
-                    }
-                    ?><br/>      
-                           <input type="submit" class="btn btn-default btn-sm" value="Search address" ng-click = "search(address2)">
+                    };?><br/>
+                <input type="submit" class="btn btn-default btn-sm" value="Search address" ng-click = "search(address2)">
                 </div>
                 <form id="location-form" method="post" action="process/setlocation.php">
-                    <input style="visibility: hidden" ng-model="address2" required type="text" class="form-control" name="location" id="search" value="<?php if (isset($_SESSION["start"])){echo $_SESSION["start"];echo '">';} else {echo '" placeholder="Search">';}?>
-				<a href="location.php" class="page-scroll btn btn-xl">Cancel</a> &nbsp;
-				<button type="submit" class="page-scroll btn btn-xl">Continue</button>
-		</form>
+                    <input style="visibility: hidden" type="text" class="form-control" name="location" id="search">
+					<input style="display: none" type="text" class="form-control" id="latitude" name="destLat"/>
+					<input style="display: none" type="text" class="form-control" id="longitude" name="destLng"/>
+					<a href="location.php" class="page-scroll btn btn-xl">Cancel</a>
+                    <button type="submit" class="page-scroll btn btn-xl">Continue</button>
+				</form>
             </div>           
         </div>
     </div>
@@ -56,9 +58,6 @@
     </div>
 </div>
 </section>
-
-<!-- Footer -->
-<?php include 'common/footer.php' ?> 
 
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
