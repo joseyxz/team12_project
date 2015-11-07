@@ -19,7 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     header("location: ../home.php");
                 }
                 else{
-                    header("location: ../home.php?redirect:error");
+                    $message = "Invalid user!";
+                    echo "<script type='text/javascript'>alert('$message');window.location.href = '../home.php?error';</script>";
                 }
             mysqli_stmt_free_result($stmt);
             mysqli_close($connection);

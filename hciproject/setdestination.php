@@ -33,16 +33,16 @@
             <div id="map" style="height:60%;"></div>
             <div id="repeat" ng-repeat="marker in markers"> </div>
             <div class="row text-center">
-                <div>
-                    <input style="left: 50%" id="searchinput" type="text" class="form-control" placeholder="Set address"  ng-model="address2" value="<?php
+                <div><br/>
+                    <input style="left: 50%" id="searchinput" type="text" class="form-control" placeholder="Set address"  ng-model="address2" 
+                           value="<?php
                     if (isset($_SESSION["destination"])) {
                         echo $_SESSION["destination"];
                         echo ' ">';
                     } else {
                         echo '">';
-                    }
-                    ?><br/>      
-                           <input type="submit" class="btn btn-default btn-sm" value="Search address" ng-click = "search(address2)">
+                    };?><br/>
+                <input type="submit" class="btn btn-default btn-sm" value="Search address" ng-click = "search(address2)">
                 </div>
                 <form id="location-form" method="post" action="process/setlocation.php">
                     <input style="visibility: hidden" type="text" class="form-control" name="location" id="search">
