@@ -45,11 +45,6 @@
          */
         $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-
-        $scope.map.addListener('click', function (event) {
-            addMarker(event.latLng);
-            console.log(event.latLng);
-        });
         /*
          Now we will define the search function which has two locations input by the user as the parameters
          Upon clicking the search button the search button the following function is executed
@@ -83,46 +78,13 @@
          For any other application only the name of the parameter will change in the code, everything else remains same
          The function will return a status and the result
          */
-
+       
         function deleteMarker(){
             for (var i = 0; i < $scope.markers.length; i++) {
             $scope.markers[i].setMap(null);
             }
         }
-        
-        function addMarker(location) {
-            var marker = new google.maps.Marker({
-                position: location,
-                map: $scope.map
-            });
-            deleteMarker();
-            marker.content = location.formatted_address;
-            var infoWindow = new google.maps.InfoWindow();
-            infoWindow.setContent(marker.content);
-            infoWindow.open($scope.map, marker);
-            $scope.markers.push(marker);
-            
-            var route = new google.maps.LatLng(
-                    location.lat(),
-                    location.lng()
-                    );
-            $scope.routes.push(route)
 
-            $scope.path1 = new google.maps.Polyline(
-                    {
-                        path: $scope.routes,
-                        strokeColor: "#FF0000",
-                        strokeOpacity: 1.0,
-                        strokeWeight: 2
-                    });
-
-            /*
-             This code is used to put the line on the map
-             which connects the two markers
-             */
-
-            $scope.markers.push(marker);
-        }
 
         var codeAddress = function (info) {
 
@@ -142,9 +104,7 @@
                 {
                     $scope.coordinate = results[0].geometry.location
                     $scope.map.setCenter(results[0].geometry.location)
-                    console.log (results[0].geometry.location.lat())
-                    console.log (results[0].geometry.location.lng())
-//                    set coords array here
+                    console.log (results[0].formatted_address)
 
                     /*
                      Once we have recieved the geocodes, we have to display a marker at that position
@@ -211,8 +171,42 @@
          The routes is the most important thing for this function
          */
 
-         
+        
+        var x = document.getElementById("getid");
 
+        $scope.getLocation = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else { 
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {   
+            var myLat1ng= new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+            var currentmap = {
+                zoom: 18,
+                center: myLat1ng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                events: {
+                "click": function (event, a, b) {
+                  console.log(event.LatLng);
+                }
+                }
+            }  
+            $scope.map = new google.maps.Map(document.getElementById("map"), currentmap);
+            var infoWindow = new google.maps.InfoWindow();
+                     
+            var marker = new google.maps.Marker(
+            {
+                map: $scope.map,
+                position: myLat1ng
+            });
+            marker.content = '<p>Your Marker Location: ' + marker.getPosition() + '</p>'
+            infoWindow.setContent(marker.content);
+            infoWindow.open($scope.map, marker);
+        }
+        
         $scope.showLine = function () {
 
 
@@ -232,7 +226,24 @@
             $scope.path1.setMap($scope.map);
 
         }
-                
+		
+//        $scope.placeMarker = function (e) {
+//            var marker = new google.maps.Marker({position: e.latLng, mapOptions: mapOptions});
+//            map.panTo(e.latLng);
+//        }
+//        google.maps.event.addDomListener(map, 'click', function() {
+//           // window.alert('Map was clicked!');
+//            address = 'changi'
+//            testAddress(address)
+//            function testAddress (info) {
+//            geocoder.geocode({'address': info}, function (results, status){
+//                if (status == google.maps.GeocoderStatus.OK){
+//                    $scope.coordinate = results[0].geometry.location
+//                    $scope.map.setCenter(results[0].geometry.location)
+//                    console.log (results[0].geometry.location.lat())  
+//            }}
+//            
+//        )}});
         
     }
     ; // end of controller function
