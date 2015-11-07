@@ -1,6 +1,6 @@
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
-<script src="mapJs.js" type="text/javascript"></script>    
+<script src="js/navMapJs.js" type="text/javascript"></script>
 	<!-- Navigation -->
 	<?php include 'common/header.php' ?> 
 
@@ -21,7 +21,7 @@
                 </div>
             </div>
 			<!--Put map here-->
-                        <div ng-controller="MapController" >
+                        <div ng-controller="MapController2" >
                             <div id="map" style="height:60%;"></div>
                             <div id="repeat" ng-repeat="marker in markers"> </div>                       
                             <div type="submit" value="Search address" ng-init = " search('<?php echo $_SESSION["start"] ?>','<?php echo $_SESSION["destination"] ?>') "/> </div>

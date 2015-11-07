@@ -1,8 +1,8 @@
 	<!-- Map Imports -->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
-	<script src="mapJs.js" type="text/javascript"></script>
-    <link href="css/cars.css" rel="stylesheet" type="text/css">
+        <script src="js/navMapJs.js" type="text/javascript"></script>
+        <link href="css/cars.css" rel="stylesheet" type="text/css">
 	
     <!-- For pop ups -->
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
@@ -37,7 +37,7 @@
 			<div class="row text-center">
 				<!-- Put your map here -->
 				<div class="col-md-12">
-					<div ng-controller="MapController">
+					<div ng-controller="MapController2">
 						<div class="map-wrapper">
 							<div id="map" style="height:60%;"></div>
 							<a id="callPopup">
