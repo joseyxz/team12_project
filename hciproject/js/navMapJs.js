@@ -208,29 +208,126 @@
          */
 
          
+		// Beginning of ANTON's PART
+        $scope.showLine = function (origin, destination) {
+			findRoute(origin, destination);
+			 
+            // $scope.path1 = new google.maps.Polyline(
+                    // {
+                        // path: $scope.routes,
+                        // strokeColor: "#FF0000",
+                        // strokeOpacity: 1.0,
+                        // strokeWeight: 2
+                    // });
 
-        $scope.showLine = function () {
+            // /*
+             // This code is used to put the line on the map
+             // which connects the two markers
+             // */
 
-
-            $scope.path1 = new google.maps.Polyline(
-                    {
-                        path: $scope.routes,
-                        strokeColor: "#FF0000",
-                        strokeOpacity: 1.0,
-                        strokeWeight: 2
-                    });
-
-            /*
-             This code is used to put the line on the map
-             which connects the two markers
-             */
-
-            $scope.path1.setMap($scope.map);
-
-        }   
+            // $scope.path1.setMap($scope.map);
+        }
+		
+		var directionsService = new google.maps.DirectionsService();
+		$scope.directionsService = directionsService;
+		var checkingRequestInterval = null;
+		$scope.line = null;
+		
+		function findRoute(origin, destination)
+		{
+			var mode = google.maps.DirectionsTravelMode.DRIVING;
+			var directionsDisplay = new google.maps.DirectionsRenderer();
+			directionsDisplay.setMap($scope.map);
+			var request = {
+				origin: origin,
+				destination: destination,
+				travelMode: mode,
+				optimizeWaypoints: true,
+				avoidHighways: false
+			};
+			$scope.paths = [];
+			
+			$scope.directionsService.route(request, function(response, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					var nPoints = response.routes[0].overview_path.length;
+					for (var i = 0; i < nPoints; i++){
+						$scope.paths.push({lat:response.routes[0].overview_path[i].lat(), lng:response.routes[0].overview_path[i].lng()});
+						console.log(response.routes[0].overview_path[i].lat() + ',' + response.routes[0].overview_path[i].lng());
+					}
+					directionsDisplay.setDirections(response);
+				}
+			});
+		}
         
-        }           
-    ;
+		$scope.startRoute = function()
+		{
+			document.getElementById("startRouteBtn").disabled = true;
+			var lineSymbol = {
+				path: google.maps.SymbolPath.CIRCLE,
+				scale: 8,
+				strokeColor: '#393'
+			};
+
+		  // Create the polyline and add the symbol to it via the 'icons' property.
+			if($scope.line != null){$scope.line.setMap(null);} // To remove the polyline
+			$scope.line = new google.maps.Polyline({
+				path: $scope.paths,
+				icons: [{
+				  icon: lineSymbol,
+				  offset: '100%'
+				}],
+				map: $scope.map
+			});
+			
+			animateCircle($scope.line, $scope.paths.length);
+			riderRequestPopup();
+		}
+		function animateCircle(line, noPaths) {
+			var count = 0;
+			var count1 = 0;
+			
+			
+			var interval = setInterval(function() {
+				count = (count + 1) % (noPaths*10);
+				var icons = line.get('icons');
+				icons[0].offset = (count / (noPaths/10)) + '%';
+				line.set('icons', icons);
+				if(count == (noPaths*10)-1)
+				{
+					count1 = count1 + 1;
+				}
+				if(count1 >= 1)
+				{
+					clearInterval(interval);
+					clearInterval(checkingRequestInterval);
+					document.getElementById("startRouteBtn").disabled = false; 					
+				}
+				console.log("count = " + count + ", offset=" + icons[0].offset + ", count1=" + count1);
+			}, 10);
+		}
+		function riderRequestPopup()
+		{
+			checkingRequestInterval = setInterval(function() {
+				
+				var xmlhttp = new XMLHttpRequest();
+				var url = 'http://localhost:8080/hciproject/carRequestAPI.php';
+				var myArr = [];
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						myArr = JSON.parse(xmlhttp.responseText);
+						if(myArr.length > 0)
+						{
+							alert("Got rider request");
+						}
+					}
+				}
+				xmlhttp.open("GET", url, true);
+				xmlhttp.send();
+				
+			}, 5000);
+		}
+//End of ANTON's PART		
+	};
 // end of 2nd controller
 
 
