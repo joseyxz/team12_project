@@ -38,10 +38,6 @@
         $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
 
-        $scope.map.addListener('click', function (event) {
-            addMarker(event.latLng);
-            console.log(event.latLng);
-        });
         /*
          Now we will define the search function which has two locations input by the user as the parameters
          Upon clicking the search button the search button the following function is executed
@@ -154,6 +150,49 @@
                              */
                             
                             $scope.markers.push(marker);
+                            
+                   // routing display
+        $('a#callPopup').click( 
+            function() { 
+                    document.getElementById('popup-content').style.display='block';
+                    document.getElementById('fade-out').style.display='block'; 
+                    return false; 
+            });
+
+            $('a#closePopup').click( 
+            function() {
+                    document.getElementById('popup-content').style.display='none';
+                    document.getElementById('fade-out').style.display='none';
+                    return false;
+            });
+//            if (info = $_SESSION["start"]){
+                var start = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
+//            }
+//            if (info = $_SESSION["destination"]){
+//                var end = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
+//            }
+           var end = {lat: 1.3038952, lng: 103.83194120000007};
+
+
+            var directionsDisplay = new google.maps.DirectionsRenderer({
+                map: $scope.map
+            });
+
+            // Set destination, origin and travel mode.
+            var request = {
+                destination: end,
+                origin:start,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            // Pass the directions request to the directions service.
+            var directionsService = new google.maps.DirectionsService();
+            directionsService.route(request, function (response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    // Display the route on the map.
+                    directionsDisplay.setDirections(response);
+                }
+            });          
 
                 }
                 
@@ -188,9 +227,14 @@
 
             $scope.path1.setMap($scope.map);
 
-        }              
-    }
+        }   
+        
+        }
+        
+            
     ;
 // end of 2nd controller
+
+
 
 }());
