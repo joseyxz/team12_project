@@ -13,24 +13,56 @@
     </header>
 
     <!-- Content -->
-	<?php include 'process/viewrequest.php'?>
     <section id="location">
         <div class="container">
             <div class="row">
             </div>
-			<!--Put map here-->
-            <div ng-controller="MapController2" >
-				<div id="map" style="height:60%;"></div>
-                <div id="repeat" ng-repeat="marker in markers"> </div>                       
-                <div type="submit" value="Search address" ng-init=" search('<?php echo $driverLocation ?>','<?php echo $myLocation ?>') "/> </div>
-				<div class="row text-center">
-				<br/>
-					<form id="location-form" method="post" action="process/cancelrequest.php">
-						<button type="submit" class="page-scroll btn btn-xl" id="cancelRouteBtn">Cancel Request</button> 
-					</form>
-				</div>
-        </div>
+			<?php include 'process/viewrequest.php';
+			if ($myLocation == ""){
+				/* Wait for driver's response */
+				echo '<div class="row text-center">';
+				echo '<h3>Waiting for driver\'s response</h3><br/><br/>';
+				echo '<img src="img/loading.gif" style="padding-bottom: 80px;">';
+				echo '<form id="location-form" method="post" action="process/cancelrequest.php">';
+				echo '<button type="submit" class="page-scroll btn btn-xl" id="cancelBtn">Cancel Request</button></form>';
+				echo '<br/>Your request will automatically be cancelled in ';
+				echo '<span id="timer">2:00</span>.<br/><br/>';
+				echo '</div>';
+			}
+			else {
+				/* Put map here */
+				echo '<div ng-controller="MapController2" >';
+				echo '<div id="map" style="height:60%;" ng-init=" showOTW(\''.$driverLocation.'\',\''.$myLocation.'\')"></div>';
+				echo '<div id="repeat" ng-repeat="marker in markers"> </div>';
+				echo '<div class="row text-center"><br/>';
+				echo '<form id="location-form" method="post" action="process/cancelrequest.php">';
+				echo '<button type="submit" class="page-scroll btn btn-xl" id="cancelBtn">Cancel Request</button></form>';
+				echo '</div></div>';
+			}
+			?>
     </section>
+	
+	<script>
+	<!-- Countdown Timer -->
+	var interval = setInterval(function() {
+    var timer = $('#timer').html();
+    timer = timer.split(':');
+    var minutes = parseInt(timer[0], 10);
+    var seconds = parseInt(timer[1], 10);
+    seconds -= 1;
+    if (minutes < 0) return clearInterval(interval);
+    if (minutes < 10 && minutes.length != 2) minutes = minutes;
+    if (seconds < 0 && minutes != 0) {
+        minutes -= 1;
+        seconds = 59;
+    }
+    else if (seconds < 10 && length.seconds != 2) seconds = '0' + seconds;
+    $('span').html(minutes + ':' + seconds);
+    
+    if (minutes == 0 && seconds == 0)
+		window.location.href = "process/cancelrequest.php"
+	}, 1000);
+	</script>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
