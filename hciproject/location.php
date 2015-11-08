@@ -38,13 +38,13 @@
             <div id="repeat" ng-repeat="marker in markers"> </div>
             <div class="row text-center">
                 <div><br/>
-                    <input style="left: 50%" id="searchinput" type="text" class="form-control" ng-model="address1" value="<?php
-                    if (isset($_SESSION["start"])) {
-                        echo $_SESSION["start"];
-                    }?>"/><br/>
-                    <input type="submit" class="btn btn-default btn-sm" value="Search" ng-click = "search(address1)"/>
-                    <input type="submit" id="getid" class="btn btn-default btn-sm" value="GPS" ng-click = "getLocation()">
-                </div>
+					<input id="searchinput" type="text" class="form-control" ng-init="address1='<?php
+								if (isset($_SESSION["start"])) {
+								echo $_SESSION["start"];
+								}?>';search(address1)" ng-model="address1"/>
+					<input type="submit" class="btn btn-default btn-sm" value="Search" ng-click = "search(address1)"/>              
+					<input type="submit" id="getid" class="btn btn-default btn-sm" value="GPS" ng-click = "getLocation()">
+				</div>
                 <form id="location-form" method="post" action="process/setlocation.php">
                     <input style="visibility: hidden" type="text" class="form-control" name="location" id="search">
 					<input style="display: none" type="text" class="form-control" id="latitude" name="originLat"/>

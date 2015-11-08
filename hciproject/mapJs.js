@@ -26,6 +26,7 @@
          You can check for more options in this link 
          https://developers.google.com/maps/documentation/javascript/examples/control-options
          */
+		 
         var mapOptions = {
             zoom: 13,
             center: new google.maps.LatLng(1.3, 103.8),
@@ -144,6 +145,9 @@
                             results[0].geometry.location.lat(),
                             results[0].geometry.location.lng()
                             );
+					
+					document.getElementById("latitude").value = results[0].geometry.location.lat();
+                    document.getElementById("longitude").value = results[0].geometry.location.lng();
 
                     $scope.routes.push(route)                   
                     $scope.markers.push(marker);
@@ -182,6 +186,10 @@
                             results[0].geometry.location.lat(),
                             results[0].geometry.location.lng()
                             );
+							
+                    document.getElementById("search").value = results[0].formatted_address;
+					document.getElementById("latitude").value = results[0].geometry.location.lat();
+                    document.getElementById("longitude").value = results[0].geometry.location.lng();
 
                     $scope.routes.push(route);                   
                     $scope.markers.push(marker);
