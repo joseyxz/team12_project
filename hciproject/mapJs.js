@@ -128,21 +128,21 @@
                     var input = locations;   
                         geocoder.geocode({'location': locations}, function(results, status) {
                         if (status === google.maps.GeocoderStatus.OK) {
-                        if (results[1]) {
+                        if (results[0]) {
                             var marker = new google.maps.Marker(
                                     {
                                     map: $scope.map,
-                                    position: results[1].geometry.location                             
+                                    position: results[0].geometry.location                             
                                 });
-                                marker.content = results[1].formatted_address;
+                                marker.content = results[0].formatted_address;
                                 document.getElementById("search").value = results[0].formatted_address;
                                 document.getElementById("searchinput").value = results[0].formatted_address;
                                 infowindow.setContent(marker.content);
                                 infowindow.open($scope.map, marker);
                                 
                              var route = new google.maps.LatLng(
-                            results[1].geometry.location.lat(),
-                            results[1].geometry.location.lng()
+                            results[0].geometry.location.lat(),
+                            results[0].geometry.location.lng()
                             );
 
                     $scope.routes.push(route)                   
