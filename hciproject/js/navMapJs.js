@@ -190,7 +190,7 @@
 		$scope.line = null;
 		
 		function findRoute(origin, destination)
-		{
+		{       deleteMarker();
 			var mode = google.maps.DirectionsTravelMode.DRIVING;
 			var directionsDisplay = new google.maps.DirectionsRenderer();
                         $scope.map.setCenter(origin)

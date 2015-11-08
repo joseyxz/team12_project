@@ -55,7 +55,7 @@
                         if ($_SESSION["role"] == "driver") {
                             echo ': set start point</a>';
                         } else {
-                            echo ': set pick-up point.</a>';
+                            echo ': set pick-up point</a>';
                         }
                     }            
                 }

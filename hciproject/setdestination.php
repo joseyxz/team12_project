@@ -44,8 +44,9 @@
                     <input style="display: none" type="text" class="form-control" name="location" id="search">
                     <input style="display: none" type="text" class="form-control" id="latitude" name="destLat"/>
                     <input style="display: none" type="text" class="form-control" id="longitude" name="destLng"/>
-                    <button style="float: left; margin: 2px; margin-left: 20px;" class="page-scroll btn btn-lg btn-danger"><a href="location.php" >Back</a></button>
-                    <button style="float:right; margin: 2px; margin-right: 20px;" type="submit" id="continueButton" class="btn-lg btn-success "><a>Next</a></button>
+<!--                    <button style="float: left; margin: 2px; margin-left: 20px;" class="btn btn-lg btn-danger"><a href="location.php" >Back</a></button>-->
+                    <a style="float:left; margin: 2px; margin-left: 20px;" class="btn btn-danger btn-lg"  href="location.php" >Back</a>
+                    <button style="float:right; margin: 2px; margin-right: 20px;" type="submit" id="continueButton" class="btn-lg btn-success ">Next</button>
 		</form>
             </div>           
         </div>

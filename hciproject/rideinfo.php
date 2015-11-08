@@ -68,7 +68,7 @@
 					</table>
 					<br/><br/>
 					<div class="row text-center">
-						<a href="confirmlocation.php" class="page-scroll btn btn-xl">Back</a> &nbsp;
+                                            <a href="setdestination.php" class="page-scroll btn btn-xl">Back</a> &nbsp;
 						<button type="submit" class="page-scroll btn btn-xl">Continue</button>
 					</div>
 				</form>
