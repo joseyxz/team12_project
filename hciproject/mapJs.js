@@ -33,10 +33,9 @@
             events: {
             "click": function (event, a, b) {
               console.log(event.LatLng);
-
             }
             }
-        }
+        };
         /*
          Remember in the HTML file we will display the map in the HTML node <div id = map>
          We get the reference to this node using document.getElementById
@@ -61,7 +60,7 @@
          */
         var geocoder = new google.maps.Geocoder();
         $scope.markers = [];
-        $scope.routes = []
+        $scope.routes = [];
 
         /*
          Now we will define the search function which has two locations input by the user as the parameters
@@ -77,7 +76,7 @@
             codeAddress(address1);
             codeAddress(address2);
 
-        }
+        };
 
         /*
          The following piece of code including if and else statement will remain the same for all geocoding applications
@@ -86,13 +85,13 @@
          The function will return a status and the result
          */
 
-        function deleteMarker(){
+    function deleteMarker(){
             for (var i = 0; i < $scope.markers.length; i++) {
             $scope.markers[i].setMap(null);
             }
         }
         
-        function addMarker(location) {
+    function addMarker(location) {
 //            var marker = new google.maps.Marker({
 //                position: location,
 //                map: $scope.map
@@ -124,7 +123,7 @@
 //            $scope.markers.push(marker);
         }
         
-                function geocodeLatLng(geocoder, map, infowindow, locations) {
+    function geocodeLatLng(geocoder, map, infowindow, locations) {
                     deleteMarker();
                     var input = locations;   
                         geocoder.geocode({'location': locations}, function(results, status) {
@@ -157,16 +156,16 @@
                         });
                     }
 
-        var codeAddress = function (info) {
+    var codeAddress = function (info) {
 
             geocoder.geocode({'address': info}, function (results, status)
             {
-                if (status == google.maps.GeocoderStatus.OK)
+                if (status === google.maps.GeocoderStatus.OK)
                 {
-                    $scope.coordinate = results[0].geometry.location
-                    $scope.map.setCenter(results[0].geometry.location)
-                    console.log (results[0].geometry.location.lat())
-                    console.log (results[0].geometry.location.lng())
+                    $scope.coordinate = results[0].geometry.location;
+                    $scope.map.setCenter(results[0].geometry.location);
+                    console.log (results[0].geometry.location.lat());
+                    console.log (results[0].geometry.location.lng());
 //                    set coords array here
                     var infoWindow = new google.maps.InfoWindow();
                     var marker = new google.maps.Marker(
@@ -184,18 +183,13 @@
                             results[0].geometry.location.lng()
                             );
 
-                    $scope.routes.push(route)                   
+                    $scope.routes.push(route);                   
                     $scope.markers.push(marker);
-
                 }
-                
             });
-             
+        };        
 
-        }        
-
-
- // from main               
+    // from main               
     $scope.codeLocalAddress = function (latlng) {
 
             //check the location latlng to match for format address
@@ -245,7 +239,7 @@
                      which contains routes of all locations
                      */
 					 
-                    $scope.routes.push(route)
+                    $scope.routes.push(route);
                     
                             $scope.path1 = new google.maps.Polyline(
                             {
@@ -265,31 +259,26 @@
                 } 
             });
         }; 
-        function showPosition(position) {   
-            var myLat1ng= new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-            var currentmap = {
-                zoom: 18,
-                center: myLat1ng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                events: {
-                "click": function (event, a, b) {
-                  console.log(event.LatLng);
-                }
-                }
-            }  
-            $scope.map = new google.maps.Map(document.getElementById("map"), currentmap);
-            $scope.codeLocalAddress(myLat1ng);
-        } 
-        $scope.getLocation = function() {
+    
+    $scope.getLocation = function() {
             var x = document.getElementById("getid");
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
+                navigator.geolocation.getCurrentPosition(viewPosition);
             } else { 
                 x.innerHTML = "Geolocation is not supported by this browser.";
             }
         };
 
-        
+    function viewPosition(position) {   
+            var myLat1ng= new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+            var currentmap = {
+                zoom: 18,
+                center: myLat1ng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };  
+            $scope.map = new google.maps.Map(document.getElementById("map"), currentmap);
+            $scope.codeLocalAddress(myLat1ng);
+        } 
     }
     ; // end of controller function
 
