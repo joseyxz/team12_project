@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 (function () {
     angular
             .module("mapApp", []) // create module

@@ -13,12 +13,12 @@
     <!-- Content -->
     <section id="location">
         <div class="container">
-            <div class="row">
+<!--            <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading">Rider</h2>
 					<h3 class="section-subheading text-muted">Confirm your route.</h3>
                 </div>
-            </div>
+            </div>-->
 			<!-- Put your map here -->
                 <div class="col-md-2">
 				</div>
@@ -32,8 +32,8 @@
 					echo $_SESSION["destination"];
 					echo '<br/><br/><br/>';
 					echo '<div class="row text-center">';
-					echo '<a href="setdestination.php" class="page-scroll btn btn-xl">Back</a> &nbsp;';
-					echo '<a href="carpoolcars.php" class="page-scroll btn btn-xl">Confirm</a>';
+					echo '<a href="setdestination.php" class="btn btn-lg btn-danger">Back</a> &nbsp;';
+					echo '<a href="carpoolcars.php" class="btn btn-lg btn-success">Confirm</a>';
 					echo '<div/>';
 				}
 				?>

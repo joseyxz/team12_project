@@ -37,21 +37,59 @@
 
 <body id="page-top" class="index">
 
-<nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+        <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
+            <div class="navbar-header">
+                <?php
+                session_start();
+                $currentpage = $_SERVER['REQUEST_URI'];
+//                echo $currentpage;
+                if ($currentpage == '/team12_project/hciproject/home.php'){
+                    echo ' <a class="navbar-brand" href="home.php">Carpool Application</a>';
+                }
+                if ($currentpage == '/team12_project/hciproject/location.php') {
+                echo ' <a class="navbar-brand">';
+                    if (isset($_SESSION["role"])) {
+                        echo $_SESSION["role"];
+                        if ($_SESSION["role"] == "driver") {
+                            echo ': set start point</a>';
+                        } else {
+                            echo ': set pick-up point.</a>';
+                        }
+                    }            
+                }
+                if ($currentpage == '/team12_project/hciproject/setdestination.php') {
+                echo ' <a class="navbar-brand page-scroll" href="#">';
+                    if (isset($_SESSION["role"])) {
+                        echo $_SESSION["role"];
+                        echo ': set your destination</a>';
+                    }
+                }
+                if ($currentpage == '/team12_project/hciproject/rideinfo.php') {
+                echo ' <a class="navbar-brand" href="#">Set Ride Details</a>';
+                }
+                if ($currentpage == '/team12_project/hciproject/confirmride.php') {
+                echo ' <a class="navbar-brand" href="#">Route Summary</a>';
+                }
+                if ($currentpage == '/team12_project/hciproject/drivernavigation.php') {
+                echo ' <a class="navbar-brand" href="#">Displaying Route & Requests </a>';
+                }
+                if ($currentpage == '/team12_project/hciproject/carpoolcars.php') {
+                echo ' <a class="navbar-brand" href="#">Displaying Nearby Carpoolers</a>';
+                }
+                if ($currentpage == '/team12_project/hciproject/confirmlocation.php') {
+                echo ' <a class="navbar-brand" href="#">Request details</a>';
+                }
+                ?>   
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand page-scroll" href="home.php">Carpool Application</a>
+            </button>     
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
                 <ul class="nav navbar-nav navbar-right">
                     <li class="hidden">
                         <a href="#page-top"></a>
@@ -60,7 +98,7 @@
                         <a href="home.php">Home</a>
                     </li>
                     <?php
-					session_start();
+					
 					if (!isset($_SESSION['login'])){
 					
 					}
@@ -85,7 +123,7 @@
 					?>
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
     </nav>
+    
