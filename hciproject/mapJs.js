@@ -278,8 +278,6 @@
             };  
             $scope.map = new google.maps.Map(document.getElementById("map"), currentmap);
             $scope.codeLocalAddress(myLat1ng);
-        } 
-    }
-    ; // end of controller function
-
+        }; 
+    }; // end of controller function
 }());
