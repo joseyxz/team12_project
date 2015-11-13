@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		else {
 			$_SESSION['destination'] = $_POST['location'];
-			$_SESSION['destLng'] = $_POST['destLat'];
-			$_SESSION['destLat'] = $_POST['destLng'];
+			$_SESSION['destLng'] = $_POST['destLng'];
+			$_SESSION['destLat'] = $_POST['destLat'];
 			if ($_SESSION['role'] == 'driver'){
 				header("location: ../rideinfo.php");
 			} else {
